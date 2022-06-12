@@ -22,9 +22,14 @@ const handleProject = async () => {
                 const getProjects = await projectCollection.find().toArray()
                 res.send(getProjects)
             })
+            app.get('/projects/:id',async (req,res) => {
+                const id = req.params.id
+                const findProjectId = {_id : ObjectId(id)}
+                const findProject = await projectCollection.findOne(findProjectId)
+                res.send(findProject)
+            })
             app.post('/projects',async (req,res) => {
                 const project = req.body
-                console.log(project)
                 const addproject = await projectCollection.insertOne(project)
                 res.send(addproject)
             })
